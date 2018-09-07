@@ -6,7 +6,7 @@
     [formControl]="checkField"/>
     <label
       (dblclick)="activeEditMode()">
-      {{ todo.text }}
+      {{ todo.text }}   {{ todo.subject }}
     </label>
     <button class="destroy" (click)="deleteTodo()"></button>
   </div>
@@ -14,8 +14,17 @@
     class="edit"
     type="text" 
     #textInput
-    (keyup.enter)="updateText()"
-    (blur)="updateText()"
     [formControl]="textField" 
     [hidden]="editing" />
+    <input 
+    class="edit"
+    type="text" 
+    #subjectInput
+    [formControl]="textField2" 
+    [hidden]="editing" />
+    <button
+    class="edit"
+    (click)="updateText()"
+    [hidden]="editing"
+    >Edit</button>
 </li>

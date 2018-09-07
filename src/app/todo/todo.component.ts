@@ -13,12 +13,16 @@ export class TodoComponent implements OnInit {
 
   @Input() todo: Todo;
   @ViewChild('textInput') textInput: ElementRef;
+  @ViewChild('subjectInput') subjectInput: ElementRef;
+
   textField: FormControl;
+  textField2: FormControl;
   checkField: FormControl;
   editing: boolean;
 
   constructor(private store: Store) {
     this.textField = new FormControl('', [Validators.required]);
+    this.textField2 = new FormControl('', [Validators.required]);
     this.checkField = new FormControl(false);
     this.checkField.valueChanges
       .subscribe(state => {
@@ -28,6 +32,7 @@ export class TodoComponent implements OnInit {
 
   ngOnInit() {
     this.textField.setValue(this.todo.text);
+    this.textField2.setValue(this.todo.subject);
     this.checkField.setValue(this.todo.completed, {emitEvent: false});
   }
 
@@ -35,7 +40,8 @@ export class TodoComponent implements OnInit {
     if (this.textField.valid && this.editing) {
       const id = this.todo.id;
       const newText: string = this.textField.value;
-      this.store.dispatch(new UpdateTodo({id: id, text: newText.trim()}));
+      const newSubject: string = this.textField2.value;
+      this.store.dispatch(new UpdateTodo({id: id, text: newText.trim(), subject: newSubject.trim()}));
       this.editing = false;
     }
   }
@@ -44,6 +50,7 @@ export class TodoComponent implements OnInit {
     this.editing = true;
     setTimeout(() => {
       this.textInput.nativeElement.focus();
+      this.subjectInput.nativeElement.focus();
     });
   }
 

@@ -54,9 +54,9 @@ export class TodoState {
   }
 
   @Action(AddTodo)
-  add({getState, patchState}: StateContext<TodoStateModel>, {payload}: AddTodo) {
+  add({getState, patchState}: StateContext<TodoStateModel>, {text, subject}: AddTodo) {
     patchState({
-      todos: [...getState().todos, {id: Math.random(), text: payload, completed: false}]
+      todos: [...getState().todos, {id: Math.random(), text: text, subject: subject, completed: false}]
     });
   }
 
@@ -92,6 +92,7 @@ export class TodoState {
       todos: getState().todos.map(td => {
         if (td.id === payload.id) {
           td.text = payload.text;
+          td.subject = payload.subject;
         }
         return td;
       })

@@ -3,7 +3,7 @@ import {Todo} from './../models';
 export class AddTodo {
   static readonly type = '[TODO] add';
 
-  constructor(public payload: string) {
+  constructor(public text: string, public subject: string) {
   }
 }
 
@@ -31,7 +31,7 @@ export class ToggleTodo {
 export class UpdateTodo {
   static readonly type = '[TODO] update';
 
-  constructor(public payload: { id: number, text: string }) {
+  constructor(public payload: { id: number, text: string, subject: string }) {
   }
 }
 

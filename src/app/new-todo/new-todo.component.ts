@@ -11,19 +11,22 @@ import {AddTodo} from '../store/actions';
 export class NewTodoComponent implements OnInit {
 
   textField: FormControl;
-
+  textField2: FormControl;
   constructor(private store: Store) {
     this.textField = new FormControl('', [Validators.required]);
+    this.textField2 = new FormControl('', [Validators.required]);
   }
 
   ngOnInit() {
   }
 
   saveTodo() {
-    if (this.textField.valid) {
+    if (this.textField.valid && this.textField2.valid) {
       const text: string = this.textField.value;
-      this.store.dispatch(new AddTodo(text.trim()));
+      const subject: string = this.textField2.value;
+      this.store.dispatch(new AddTodo(text.trim(), subject.trim()));
       this.textField.setValue('', {emitEvent: false});
+      this.textField2.setValue('', {emitEvent: false});
     }
   }
 
